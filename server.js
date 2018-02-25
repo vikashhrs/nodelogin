@@ -4,7 +4,7 @@ var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var session = require('express-session');
 var mongoose = require('mongoose');
-var PORT = process.env.port || 5000;
+var PORT = process.env.PORT || 5000;
 
 var authRoute = require('./routes/auth');
 
