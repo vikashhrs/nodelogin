@@ -12,11 +12,14 @@ var User = require('./models/users');
 
 var app = express();
 
+
 mongoose.connect('mongodb://vikashhrs:12345@ds247688.mlab.com:47688/nodelogin');
+
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
 
 app.use(session({
     key: 'user_id',
@@ -31,18 +34,22 @@ app.use(session({
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
 
+/**
+    Middleware for checking the presence of session, if not present clear cookies
+*/
 app.use(function(req, res, next){
     if (req.cookies.user_sid && !req.session.user_token) {
-        res.clearCookie('user_sid');        
+        res.clearCookie('user_id');        
     }
     next();
 });
+
 
 app.use(authRoute);
 
