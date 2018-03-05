@@ -44,7 +44,7 @@ app.use(function (req, res, next) {
     Middleware for checking the presence of session, if not present clear cookies
 */
 app.use(function(req, res, next){
-    if (req.cookies.user_sid && !req.session.user_token) {
+    if (req.cookies.user_id && !req.session.user_token) {
         res.clearCookie('user_id');        
     }
     next();
